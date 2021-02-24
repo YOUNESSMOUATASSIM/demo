@@ -24,8 +24,8 @@ public class Administrateur extends Utilisateur {
     @OneToMany(fetch = LAZY)
     private List<Responsable> responsableList = new ArrayList<>();
 
-    public Administrateur(Long id,String email,String nom,String prenom,String cin,int rib,String password,boolean etat,List<Responsable> l){
-        super(id,email,nom,prenom,cin,rib,password,etat);
+    public Administrateur(Long id,String email,String username,String cin,int rib,String password,boolean etat,List<Responsable> l){
+        super(id,email,username,cin,rib,password,etat);
         this.responsableList=l;
     }
 

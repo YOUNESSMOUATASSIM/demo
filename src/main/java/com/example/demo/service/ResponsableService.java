@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Utilisateur;
 import com.projetStage.projetStage.exceptions.ResponsableException;
 import com.example.demo.model.Responsable;
 import com.example.demo.repo.ResponsableRepository;
@@ -32,5 +33,11 @@ public class ResponsableService {
     public Responsable selectionnerResponsable(Long idResponsable){
         return responsableRepository.findById(idResponsable).
                 orElseThrow(()->new ResponsableException("le responsable id :"+idResponsable+"n'existe pas !"));
+    }
+
+
+    public Utilisateur selectionnerResponsableName(String username) {
+        return responsableRepository.findByUsername(username).
+                orElseThrow(()->new ResponsableException("le responsable avec username :"+username+"n'existe pas !"));
     }
 }

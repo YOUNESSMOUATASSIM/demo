@@ -22,8 +22,7 @@ public   class  Utilisateur implements Serializable {
     @Email
     @NotEmpty(message = "Email est necessaire")
     protected String email;
-    protected String nom;
-    protected String prenom;
+    protected String username;
     protected String cin;
     protected int rib;
     @NotBlank(message = "Password est necessaire")

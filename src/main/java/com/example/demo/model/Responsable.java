@@ -36,10 +36,10 @@ public class Responsable extends Utilisateur {
     private List<Produit> produitsList = new ArrayList<>();
 
 
-    public Responsable(Long id, String email, String nom, String prenom, String cin, int rib, String password, boolean etat, Administrateur admin,
+    public Responsable(Long id, String email, String username, String cin, int rib, String password, boolean etat, Administrateur admin,
                        List<Client> clientsList, List<Fournisseur> fournisseursList, List<Commande> commandesList,
                        List<Produit> produitsList){
-        super(id,email,nom,prenom,cin,rib,password,etat);
+        super(id,email,username,cin,rib,password,etat);
         this.admin=admin;
         this.clientsList=clientsList;
         this.commandesList=commandesList;
