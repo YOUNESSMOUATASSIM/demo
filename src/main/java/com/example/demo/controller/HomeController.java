@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthenticationRequest;
 import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.dto.UtilisateurDTO;
+import com.example.demo.service.AuthService;
 import com.example.demo.service.MyUserDetailsService;
 import com.example.demo.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/auth")
 public class HomeController  {
-
-    private   AuthenticationManager authenticationManager;
+    AuthService authService;
+    private  final AuthenticationManager authenticationManager;
     private final JwtUtil jwtTokenUtil;
     private  final MyUserDetailsService userDetailsService;
 
@@ -39,7 +40,9 @@ public class HomeController  {
         return "Welcome !";
     }
 
-    @PostMapping(value = "/authenticate")
+
+
+    @PostMapping(value="/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         try {
@@ -59,7 +62,10 @@ public class HomeController  {
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
+
+
     }
+
 
     @PostMapping(value = "/register-responsable")
     public ResponseEntity<?> saveUserResponsable(@RequestBody UtilisateurDTO user) throws Exception {

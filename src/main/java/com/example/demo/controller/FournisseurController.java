@@ -35,9 +35,9 @@ public class FournisseurController {
         return new ResponseEntity<>(fournisseur1, HttpStatus.CREATED);
     }
 
-    @PutMapping("/modifier")
-    public ResponseEntity<Fournisseur> modifierFournisseur(@RequestBody Fournisseur fournisseur) {
-        Fournisseur fournisseur2 = fournisseurService.modifierFournisseur(fournisseur);
+    @PutMapping("/modifier/{id}")
+    public ResponseEntity<Fournisseur> modifierFournisseur(@PathVariable("id") Long id,@RequestBody Fournisseur fournisseur) {
+        Fournisseur fournisseur2 = fournisseurService.modifierFournisseur(id,fournisseur);
         return new ResponseEntity<>(fournisseur2, HttpStatus.OK);
     }
 

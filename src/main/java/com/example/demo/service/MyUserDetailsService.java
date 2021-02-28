@@ -33,7 +33,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Utilisateur user = responsableService.selectionnerResponsableName(username);
+        Responsable user = responsableService.selectionnerResponsableName(username);
         if (user == null) {
             throw new UsernameNotFoundException("n'existe aucun utilisateur avec username : " + username);
         }

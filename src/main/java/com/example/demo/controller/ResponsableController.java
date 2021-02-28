@@ -37,7 +37,7 @@ public class ResponsableController {
         return new ResponseEntity<>(responsable1, HttpStatus.CREATED);
     }
 
-    @PutMapping("/modifier")
+    @PutMapping("/modifier/{id}")
     public ResponseEntity<Responsable> modifierResponsable(@RequestBody Responsable responsable) {
         Responsable responsable2 = responsableService.modifierResponsable(responsable);
         return new ResponseEntity<>(responsable2, HttpStatus.OK);

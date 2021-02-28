@@ -4,13 +4,18 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static java.util.Date.from;
 
 @Service
 public class JwtUtil {
@@ -41,6 +46,12 @@ public class JwtUtil {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails.getUsername());
+    }
+    public String generateToken2(Authentication authentication) {
+        User principal = (User) authentication.getPrincipal();
+        return Jwts.builder()
+                .setSubject(principal.getUsername()).toString();
+
     }
 
     private String createToken(Map<String, Object> claims, String subject) {

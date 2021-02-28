@@ -21,6 +21,7 @@ public class ResponsableService {
         return responsableRepository.save(responsable);
     }
     public Responsable modifierResponsable(Responsable responsable){
+
         return responsableRepository.save(responsable);
 
     }
@@ -36,7 +37,7 @@ public class ResponsableService {
     }
 
 
-    public Utilisateur selectionnerResponsableName(String username) {
+    public Responsable selectionnerResponsableName(String username) {
         return responsableRepository.findByUsername(username).
                 orElseThrow(()->new ResponsableException("le responsable avec username :"+username+"n'existe pas !"));
     }

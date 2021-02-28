@@ -25,6 +25,12 @@ public class FournisseurService {
         return fournisseurRepository.save(fournisseur);
 
     }
+    public Fournisseur modifierFournisseur(Long idFournisseur,Fournisseur fournisseur){
+        supprimerFournisseur(idFournisseur);
+        fournisseur.setIdFournisseur(idFournisseur);
+        return fournisseurRepository.save(fournisseur);
+
+    }
     public  void supprimerFournisseur(Long idFournisseur){
         fournisseurRepository.deleteById(idFournisseur);
     }
