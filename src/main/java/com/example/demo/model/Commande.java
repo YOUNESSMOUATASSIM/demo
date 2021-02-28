@@ -27,7 +27,13 @@ public class Commande {
     private double quantite;
     @NotEmpty(message = "Prix commande est necessaire")
     private double prix;
+    public double prixCommande(List<LigneCommande> listeligneCommande){
 
+        for (LigneCommande l: listeligneCommande) {
+            this.prix+=l.totaleLigneCommande(l.getProduit());
+        }
+        return this.prix;
+    }
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "idClient", referencedColumnName = "idClient")

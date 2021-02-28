@@ -35,10 +35,9 @@ public class ProduitController {
         return new ResponseEntity<>(produit1,HttpStatus.CREATED);
     }
 
-    @PutMapping("/modifier")
-    public ResponseEntity<Produit> modifierProduit(@RequestBody Produit produit){
-        Produit produit2=produitService.modifierProduit(produit);
-        return new ResponseEntity<>(produit2,HttpStatus.OK);
+    @PutMapping("/modifier/{id}")
+    public ResponseEntity<Produit> modifierProduit(@PathVariable("id") Long id,@RequestBody Produit produit){
+        return  ResponseEntity.ok(produitService.modifierProduit(id,produit));
     }
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Produit> supprimerProduit(@PathVariable("id") Long id){

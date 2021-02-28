@@ -36,10 +36,10 @@ public class CommandeController {
         return new ResponseEntity<>(commande1,HttpStatus.CREATED);
     }
 
-    @PutMapping("/modifier")
-    public ResponseEntity<Commande> modifierCommande(@RequestBody Commande commande){
-        Commande commande2=commandeService.modifierCommande(commande);
-        return new ResponseEntity<>(commande2,HttpStatus.OK);
+    @PutMapping("/modifier/{id}")
+    public ResponseEntity<Commande> modifierCommande(@PathVariable("id") Long id,@RequestBody Commande commande){
+
+        return ResponseEntity.ok(commandeService.modifierCommande(id,commande));
     }
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Commande> supprimerCommande(@PathVariable("id") Long id){

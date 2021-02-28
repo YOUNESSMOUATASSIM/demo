@@ -26,9 +26,15 @@ public class FournisseurService {
 
     }
     public Fournisseur modifierFournisseur(Long idFournisseur,Fournisseur fournisseur){
-        supprimerFournisseur(idFournisseur);
-        fournisseur.setIdFournisseur(idFournisseur);
-        return fournisseurRepository.save(fournisseur);
+        Fournisseur oldFournisseur = fournisseurRepository.getOne(idFournisseur);
+        oldFournisseur.setCin(fournisseur.getCin());
+        oldFournisseur.setAdresse(fournisseur.getAdresse());
+        oldFournisseur.setNom(fournisseur.getNom());
+        oldFournisseur.setPrenom(fournisseur.getPrenom());
+        oldFournisseur.setProduitsList(fournisseur.getProduitsList());
+        oldFournisseur.setResponsable(fournisseur.getResponsable());
+
+        return fournisseurRepository.save(oldFournisseur);
 
     }
     public  void supprimerFournisseur(Long idFournisseur){

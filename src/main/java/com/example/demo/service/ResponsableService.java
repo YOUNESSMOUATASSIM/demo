@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Utilisateur;
+
+import com.example.demo.model.Administrateur;
 import com.projetStage.projetStage.exceptions.ResponsableException;
 import com.example.demo.model.Responsable;
 import com.example.demo.repo.ResponsableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +15,11 @@ import java.util.List;
 @Service
 public class ResponsableService {
     private final ResponsableRepository responsableRepository;
+
     @Autowired
-    public ResponsableService(ResponsableRepository responsableRepository) {
+    public ResponsableService(  ResponsableRepository responsableRepository, PasswordEncoder bcryptEncode) {
         this.responsableRepository = responsableRepository;
+
     }
     public Responsable ajouterResponsable(Responsable responsable){
         return responsableRepository.save(responsable);
@@ -36,9 +40,26 @@ public class ResponsableService {
                 orElseThrow(()->new ResponsableException("le responsable id :"+idResponsable+"n'existe pas !"));
     }
 
-
+    /*.
+             orElseThrow(()->new ResponsableException("le responsable avec username :"+username+" n'existe pas !"))*/
     public Responsable selectionnerResponsableName(String username) {
-        return responsableRepository.findByUsername(username).
-                orElseThrow(()->new ResponsableException("le responsable avec username :"+username+"n'existe pas !"));
+        return responsableRepository.findByUsername(username);
+
     }
+    public Responsable modifierResponsable(Long id, Responsable userupdate){
+
+        Responsable user= responsableRepository.getOne(id);
+        user.setUsername(userupdate.getUsername());
+        user.setEmail(userupdate.getEmail());
+        user.setPassword(userupdate.getPassword());
+        user.setUsername(userupdate.getUsername());
+        user.setCin(userupdate.getCin());
+        user.setRib(userupdate.getRib());
+        user.setEtat(true);
+        return responsableRepository.save(user);
+
+
+    }
+
+
 }

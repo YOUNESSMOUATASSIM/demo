@@ -26,7 +26,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
-    public SecurityConfigurer(UserDetailsService myUserDetailsService, JwtRequestFilter jwtRequestFilter) {
+    public SecurityConfigurer( @Lazy UserDetailsService myUserDetailsService, JwtRequestFilter jwtRequestFilter) {
         this.myUserDetailsService = myUserDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
     }
@@ -55,7 +55,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests().antMatchers("/auth/register-responsable",
-                "/auth/register-admin","/auth/login"
+                "/auth/register-admin","/auth/login","/Responsables/**",
+                "/Produits/**"
                 ).permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().and().sessionManagement()

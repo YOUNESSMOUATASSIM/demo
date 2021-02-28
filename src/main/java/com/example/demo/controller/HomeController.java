@@ -67,6 +67,7 @@ public class HomeController  {
     }
 
 
+
     @PostMapping(value = "/register-responsable")
     public ResponseEntity<?> saveUserResponsable(@RequestBody UtilisateurDTO user) throws Exception {
         return ResponseEntity.ok(userDetailsService.saveResponsable(user));

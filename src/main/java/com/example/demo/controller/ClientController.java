@@ -35,10 +35,10 @@ public class ClientController {
         return new ResponseEntity<>(client1,HttpStatus.CREATED);
     }
 
-    @PutMapping("/modifier")
-    public ResponseEntity<Client> modifierClient(@RequestBody Client client){
-        Client client2=clientService.modifierClient(client);
-        return new ResponseEntity<>(client2,HttpStatus.OK);
+    @PutMapping("/modifier/{id}")
+    public ResponseEntity<Client> modifierClient(@PathVariable("id") Long id,@RequestBody Client client){
+
+        return ResponseEntity.ok(clientService.modifierClient(id,client));
     }
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Client> supprimerClient(@PathVariable("id") Long id){

@@ -33,4 +33,18 @@ public class CommandeService {
         return commandeRepository.findById(idCommande).
                 orElseThrow(()->new CommandeException("la commande id :"+idCommande+" n'existe pas !"));
     }
+
+    public Commande modifierCommande(Long id, Commande commande) {
+        Commande oldCommande=commandeRepository.getOne(id);
+
+        oldCommande.setDateCommande(commande.getDateCommande());
+        oldCommande.setLignesCommandeList(commande.getLignesCommandeList());
+        oldCommande.setClient(commande.getClient());
+        oldCommande.setPrix(commande.getPrix());
+        oldCommande.setQuantite(commande.getQuantite());
+        oldCommande.setResponsable(commande.getResponsable());
+
+
+        return commandeRepository.save(oldCommande);
+    }
 }

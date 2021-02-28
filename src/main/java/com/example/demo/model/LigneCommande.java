@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Data
@@ -20,6 +22,10 @@ public class LigneCommande {
     private double quantiteCommande;
     private double totale;
 
+    public double totaleLigneCommande(Produit produit){
+          return  this.totale=this.quantiteCommande*produit.getPrixUnitaire();
+
+    }
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "idCommande", referencedColumnName = "idCommande")
     private Commande commande;

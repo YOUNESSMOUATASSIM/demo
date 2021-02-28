@@ -33,4 +33,18 @@ public class ProduitService {
         return produitRepository.findById(idProduit).
                 orElseThrow(()->new ProduitException("le produit id :"+idProduit+" n'exite pas  !"));
     }
+
+    public Produit modifierProduit(Long id, Produit produit) {
+        Produit oldProduit =produitRepository.getOne(id);
+
+        oldProduit.setDateProduction(produit.getDateProduction());
+        oldProduit.setDateExperation(produit.getDateExperation());
+        oldProduit.setLibelle(produit.getLibelle());
+        oldProduit.setQuantiteUnitaire(produit.getQuantiteUnitaire());
+        oldProduit.setResponsable(produit.getResponsable());
+        oldProduit.setLigneCommandesList(produit.getLigneCommandesList());
+        oldProduit.setPrixUnitaire(produit.getPrixUnitaire());
+        oldProduit.setFournisseur(produit.getFournisseur());
+        return produitRepository.save(oldProduit);
+    }
 }

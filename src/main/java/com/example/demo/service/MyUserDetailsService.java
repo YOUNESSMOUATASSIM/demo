@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class MyUserDetailsService implements UserDetailsService {
 
 
-    private  PasswordEncoder bcryptEncoder;
-    private  ResponsableService responsableService;
-    private  AdministrateurService administrateurService;
+    private  final PasswordEncoder bcryptEncoder;
+    private  final ResponsableService responsableService;
+    private  final  AdministrateurService administrateurService;
 
     @Autowired
     public MyUserDetailsService(@Lazy PasswordEncoder bcryptEncoder, ResponsableService responsableService, AdministrateurService administrateurService) {
@@ -33,7 +33,19 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Responsable user = responsableService.selectionnerResponsableName(username);
+        Utilisateur user=null ;
+
+          
+            user = responsableService.selectionnerResponsableName(username);
+        if(user ==null){
+            user = administrateurService.selectionnerAdministrateurName(username);
+        }
+
+           
+
+
+
+
         if (user == null) {
             throw new UsernameNotFoundException("n'existe aucun utilisateur avec username : " + username);
         }

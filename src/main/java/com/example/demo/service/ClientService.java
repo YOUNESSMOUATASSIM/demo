@@ -34,4 +34,14 @@ public class ClientService {
                 orElseThrow(()->new ClientException("le client id :"+idClient+" n'existe pas !"));
     }
 
+    public Client modifierClient(Long id, Client client) {
+        Client oldClient=clientRepository.getOne(id);
+        oldClient.setResponsable(client.getResponsable());
+        oldClient.setCin(client.getCin());
+        oldClient.setCommandesList(client.getCommandesList());
+        oldClient.setRib(client.getRib());
+        oldClient.setNom(client.getNom());
+        oldClient.setPrenom(client.getPrenom());
+        return  clientRepository.save(oldClient);
+    }
 }

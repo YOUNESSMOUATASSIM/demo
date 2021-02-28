@@ -5,6 +5,7 @@ import com.example.demo.model.Responsable;
 import com.example.demo.service.ResponsableService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,10 +14,12 @@ import java.util.List;
 @RequestMapping("/Responsables")
 public class ResponsableController {
     private final ResponsableService responsableService;
+    private PasswordEncoder bcryptEncoder;
 
-    public ResponsableController(ResponsableService responsableService) {
+    public ResponsableController(ResponsableService responsableService, PasswordEncoder bcryptEncoder) {
         this.responsableService = responsableService;
 
+        this.bcryptEncoder = bcryptEncoder;
     }
 
     @GetMapping("/all")
@@ -33,14 +36,15 @@ public class ResponsableController {
 
     @PostMapping("/ajouter")
     public ResponseEntity<Responsable> ajouterResponsable(@RequestBody Responsable responsable) {
+        responsable.setPassword(bcryptEncoder.encode(responsable.getPassword()));
         Responsable responsable1 = responsableService.ajouterResponsable(responsable);
         return new ResponseEntity<>(responsable1, HttpStatus.CREATED);
     }
 
     @PutMapping("/modifier/{id}")
-    public ResponseEntity<Responsable> modifierResponsable(@RequestBody Responsable responsable) {
-        Responsable responsable2 = responsableService.modifierResponsable(responsable);
-        return new ResponseEntity<>(responsable2, HttpStatus.OK);
+    public ResponseEntity<Responsable> modifierResponsable(@PathVariable("id") Long id,@RequestBody Responsable responsable) {
+        responsable.setPassword(bcryptEncoder.encode(responsable.getPassword()));
+        return  ResponseEntity.ok(responsableService.modifierResponsable(id,responsable));
     }
 
     @DeleteMapping("/supprimer/{id}")
