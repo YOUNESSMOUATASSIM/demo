@@ -19,7 +19,14 @@ public class LigneCommandeService {
     public LigneCommande ajouterLigneCommande(LigneCommande ligneCommande){
         return ligneCommandeRepo.save(ligneCommande);
     }
-    public LigneCommande modifierLigneCommande(LigneCommande ligneCommande){
+    public LigneCommande modifierLigneCommande(Long id,LigneCommande ligneCommande){
+        LigneCommande oldLigne=ligneCommandeRepo.getOne(id);
+
+        oldLigne.setCommande(ligneCommande.getCommande());
+        oldLigne.setQuantiteCommande(ligneCommande.getQuantiteCommande());
+        oldLigne.setProduit(ligneCommande.getProduit());
+        oldLigne.setTotale(ligneCommande.getTotale());
+        
         return ligneCommandeRepo.save(ligneCommande);
 
     }

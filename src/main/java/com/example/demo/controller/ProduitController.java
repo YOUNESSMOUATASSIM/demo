@@ -23,7 +23,7 @@ public class ProduitController {
         return new ResponseEntity<>(produitList, HttpStatus.OK);
     }
 
-    @GetMapping("/trouve/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Produit> selectionnerProduit(@PathVariable("id") Long id){
         Produit produit =produitService.selectionnerProduit(id);
         return new ResponseEntity<>(produit,HttpStatus.OK);
