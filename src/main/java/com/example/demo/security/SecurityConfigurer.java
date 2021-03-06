@@ -55,14 +55,14 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/auth/register-responsable","/auth/**",
-                "/Responsables/**","/Fournisseurs/**","/LigneCommandes/**",
-                "/auth/register-admin","/auth/login","/Produits/**"
+                .authorizeRequests().antMatchers("/auth/register-responsable",
+                "/auth/register-admin","/auth/login"
                 ).permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
+//"/auth/**",
+//                "/Responsables/**","/Fournisseurs/**","/LigneCommandes/**",,"/Produits/**"
 }
